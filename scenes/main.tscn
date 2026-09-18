@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dyut0ukpox3w4"]
 
 [ext_resource type="Texture2D" uid="uid://ud2l2btjx1j2" path="res://assets/test/purple.png" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://b3ovq2r5yuc81" path="res://scenes/Main.cs" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://dkieavnwr0deu" path="res://player/player.tscn" id="2_0wfyh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
@@ -20,7 +21,10 @@ albedo_texture = ExtResource("1_o5qli")
 uv1_scale = Vector3(0.25, 0.25, 0.25)
 uv1_triplanar = true
 
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_igtx2"]
+
 [node name="main" type="Node3D" unique_id=1154116513]
+script = ExtResource("1_sugp2")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1705196160]
 environment = SubResource("Environment_sugp2")
@@ -39,5 +43,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 polygon = PackedVector2Array(0, 0, 0, 1.5, 4.5, 0, 1, 0)
 depth = 5.0
 
-[node name="RigidBody3D" parent="." unique_id=1336565584 instance=ExtResource("2_0wfyh")]
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=708322382]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 0)
+material_override = SubResource("StandardMaterial3D_0wfyh")
+use_collision = true
+size = Vector3(10, 1, 4)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=835871918]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, -2, 0)
+material_override = SubResource("StandardMaterial3D_0wfyh")
+use_collision = true
+size = Vector3(10, 1, 4)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=156588824]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, -2, 0)
+material_override = SubResource("StandardMaterial3D_0wfyh")
+use_collision = true
+size = Vector3(6, 1, 4)
+
+[node name="ceiling" parent="." unique_id=1336565584 instance=ExtResource("2_0wfyh")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4, 0)
+
+[node name="Area3D" type="Area3D" parent="." unique_id=870256294]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -14.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=600108190]
+shape = SubResource("WorldBoundaryShape3D_igtx2")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

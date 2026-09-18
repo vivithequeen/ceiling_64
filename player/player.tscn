@@ -3,16 +3,18 @@
 [ext_resource type="ArrayMesh" uid="uid://7pkplprt4f2i" path="res://assets/models/ceiling.obj" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://cwjrlkwvvk6ib" path="res://player/Player.cs" id="1_rkbax"]
 [ext_resource type="Script" uid="uid://c3n8n1xet0ub1" path="res://player/CameraRig.cs" id="2_camrig"]
+[ext_resource type="Texture2D" uid="uid://d1il5mfvjwxww" path="res://assets/models/ceiling_ceilingtexturelowres.png" id="3_yw30f"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rkbax"]
 radius = 0.951058
 height = 2.782261
 
-[node name="RigidBody3D" type="RigidBody3D" unique_id=1336565584]
-script = ExtResource("1_rkbax")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qjkh3"]
+albedo_texture = ExtResource("3_yw30f")
+texture_filter = 2
 
-[node name="Ceiling" type="MeshInstance3D" parent="." unique_id=1484853889]
-mesh = ExtResource("1_oul6g")
+[node name="ceiling" type="RigidBody3D" unique_id=1336565584]
+script = ExtResource("1_rkbax")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2048966049]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, -0.01804161)
@@ -26,3 +28,7 @@ script = ExtResource("2_camrig")
 spring_length = 8.0
 
 [node name="camera" type="Camera3D" parent="CameraRig/SpringArm3D" unique_id=306434216]
+
+[node name="Ceiling" type="MeshInstance3D" parent="." unique_id=1659569100]
+material_override = SubResource("StandardMaterial3D_qjkh3")
+mesh = ExtResource("1_oul6g")

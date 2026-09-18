@@ -12,8 +12,6 @@ public partial class Player : RigidBody3D
 	[Export] public float MaxAirSpeed = 1f;
 	[Export] public float BrakeStrength = 8f;
 
-	private MeshInstance3D _comMarker;
-	private MeshInstance3D[] _contactMarkers;
 
 	// World-space collision points from the last physics step, valid up to ContactCount.
 	public Vector3[] ContactPoints { get; } = new Vector3[MaxContacts];
@@ -31,14 +29,8 @@ public partial class Player : RigidBody3D
         MaxContactsReported = MaxContacts;
 
         // Simple debug marker showing where the center of mass is pushed to.
-        _comMarker = CreateMarker(Colors.Red, 0.15f);
 
-        // One reusable marker per possible contact point.
-        _contactMarkers = new MeshInstance3D[MaxContacts];
-        for (int i = 0; i < MaxContacts; i++)
-        {
-            _contactMarkers[i] = CreateMarker(Colors.Lime, 0.08f);
-        }
+
 
 
         camera = GetNode<Camera3D>("camera");
@@ -137,16 +129,10 @@ public partial class Player : RigidBody3D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		_comMarker.GlobalPosition = GlobalPosition + GlobalBasis * CenterOfMass;
 
         for (int i = 0; i < MaxContacts; i++)
         {
-            bool active = i < ContactCount;
-            _contactMarkers[i].Visible = active;
-            if (active)
-            {
-                _contactMarkers[i].GlobalPosition = ContactPoints[i];
-            }
+
         }
         if (Input.IsActionJustPressed("space"))
         {
