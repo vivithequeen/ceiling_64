@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dkieavnwr0deu"]
+
+[ext_resource type="ArrayMesh" uid="uid://7pkplprt4f2i" path="res://assets/models/ceiling.obj" id="1_oul6g"]
+[ext_resource type="Script" uid="uid://cwjrlkwvvk6ib" path="res://player/Player.cs" id="1_rkbax"]
+[ext_resource type="Script" uid="uid://c3n8n1xet0ub1" path="res://player/CameraRig.cs" id="2_camrig"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rkbax"]
+radius = 0.951058
+height = 2.782261
+
+[node name="RigidBody3D" type="RigidBody3D" unique_id=1336565584]
+script = ExtResource("1_rkbax")
+
+[node name="Ceiling" type="MeshInstance3D" parent="." unique_id=1484853889]
+mesh = ExtResource("1_oul6g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2048966049]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, -0.01804161)
+shape = SubResource("CapsuleShape3D_rkbax")
+
+[node name="CameraRig" type="Node3D" parent="." unique_id=306434214]
+top_level = true
+script = ExtResource("2_camrig")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraRig" unique_id=306434215]
+spring_length = 8.0
+
+[node name="camera" type="Camera3D" parent="CameraRig/SpringArm3D" unique_id=306434216]

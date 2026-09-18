@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://dyut0ukpox3w4"]
+
+[ext_resource type="Texture2D" uid="uid://ud2l2btjx1j2" path="res://assets/test/purple.png" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://dkieavnwr0deu" path="res://player/player.tscn" id="2_0wfyh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_0wfyh"]
+sky_material = SubResource("ProceduralSkyMaterial_o5qli")
+
+[sub_resource type="Environment" id="Environment_sugp2"]
+background_mode = 2
+sky = SubResource("Sky_0wfyh")
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0wfyh"]
+albedo_texture = ExtResource("1_o5qli")
+uv1_scale = Vector3(0.25, 0.25, 0.25)
+uv1_triplanar = true
+
+[node name="main" type="Node3D" unique_id=1154116513]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1705196160]
+environment = SubResource("Environment_sugp2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=734805896]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=116844892]
+material_override = SubResource("StandardMaterial3D_0wfyh")
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="CSGBox3D" unique_id=235007212]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+polygon = PackedVector2Array(0, 0, 0, 1.5, 4.5, 0, 1, 0)
+depth = 5.0
+
+[node name="RigidBody3D" parent="." unique_id=1336565584 instance=ExtResource("2_0wfyh")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4, 0)
