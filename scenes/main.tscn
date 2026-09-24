@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ud2l2btjx1j2" path="res://assets/test/purple.png" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://b3ovq2r5yuc81" path="res://scenes/Main.cs" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://dkieavnwr0deu" path="res://player/player.tscn" id="2_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://dxa2v1ky38c3a" path="res://scenes/checkpoint/checkpoint.tscn" id="4_jyhfs"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -23,8 +24,9 @@ uv1_triplanar = true
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_igtx2"]
 
-[node name="main" type="Node3D" unique_id=1154116513]
+[node name="main" type="Node3D" unique_id=1154116513 node_paths=PackedStringArray("checkpoints")]
 script = ExtResource("1_sugp2")
+checkpoints = [NodePath("checkpoint2"), NodePath("checkpoint")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1705196160]
 environment = SubResource("Environment_sugp2")
@@ -42,6 +44,17 @@ size = Vector3(20, 1, 20)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 polygon = PackedVector2Array(0, 0, 0, 1.5, 4.5, 0, 1, 0)
 depth = 5.0
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="CSGBox3D" unique_id=709084224]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2, -1, 10)
+polygon = PackedVector2Array(0, 0, 0, 1.5, 20, -8.5, 0, -8.5)
+depth = 5.0
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGBox3D" unique_id=1694374691]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -14, 53)
+material_override = SubResource("StandardMaterial3D_0wfyh")
+use_collision = true
+size = Vector3(20, 1, 20)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=708322382]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 0)
@@ -69,5 +82,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -14.5, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=600108190]
 shape = SubResource("WorldBoundaryShape3D_igtx2")
+
+[node name="checkpoint" parent="." unique_id=1851894858 instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.9999995, 7)
+
+[node name="checkpoint2" parent="." unique_id=1818607936 instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, -0.99999976, -1)
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

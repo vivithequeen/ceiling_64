@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://8soiyrxdx1ya"]
+
+[sub_resource type="Gradient" id="Gradient_onmmq"]
+colors = PackedColorArray(0.15487596, 0.154876, 0.15487596, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1t001"]
+gradient = SubResource("Gradient_onmmq")
+
+[sub_resource type="Curve" id="Curve_r7iit"]
+_data = [Vector2(0.0043103397, 0), 0.0, 0.0, 0, 0, Vector2(0.112068966, 1), 0.0, 0.0, 0, 0, Vector2(0.79310346, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_qrw30"]
+curve = SubResource("Curve_r7iit")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qx20q"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 0.2)
+emission_ring_height = 0.15
+emission_ring_radius = 0.75
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+use_rotation_3d = true
+rotation_3d_min = Vector3(0, 0, 0)
+rotation_3d_max = Vector3(360, 360, 360)
+direction = Vector3(0, 0, -1)
+spread = 38.0
+initial_velocity_min = 4.0
+initial_velocity_max = 8.0
+angular_velocity_min = -45.0
+angular_velocity_max = 45.0
+orbit_velocity_min = -0.41499993
+orbit_velocity_max = 0.35600013
+gravity = Vector3(0, -32, 0)
+damping_min = 3.0
+damping_max = 8.0
+use_scale_3d = true
+scale_3d_min = Vector3(0.5, 0.5, 0.5)
+scale_3d_max = Vector3(2.6, 2.6, 2.6)
+scale_curve = SubResource("CurveTexture_qrw30")
+color_initial_ramp = SubResource("GradientTexture1D_1t001")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ptcl0"]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_5tb5b"]
+material = SubResource("StandardMaterial3D_ptcl0")
+size = Vector3(0.3, 0.3, 0.3)
+
+[node name="fall_particle" type="Node3D" unique_id=152278189]
+
+[node name="floor_partical" type="GPUParticles3D" parent="." unique_id=694907827]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+emitting = false
+amount = 25
+one_shot = true
+explosiveness = 1.0
+randomness = 0.4
+process_material = SubResource("ParticleProcessMaterial_qx20q")
+draw_pass_1 = SubResource("BoxMesh_5tb5b")

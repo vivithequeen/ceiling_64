@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://cwjrlkwvvk6ib" path="res://player/Player.cs" id="1_rkbax"]
 [ext_resource type="Script" uid="uid://c3n8n1xet0ub1" path="res://player/CameraRig.cs" id="2_camrig"]
 [ext_resource type="Texture2D" uid="uid://d1il5mfvjwxww" path="res://assets/models/ceiling_ceilingtexturelowres.png" id="3_yw30f"]
+[ext_resource type="PackedScene" uid="uid://bwwmdxuia2kuq" path="res://player/floor_partical.tscn" id="5_qjkh3"]
+[ext_resource type="PackedScene" uid="uid://8soiyrxdx1ya" path="res://player/fall_particle.tscn" id="6_g6k8r"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rkbax"]
 radius = 0.951058
@@ -32,3 +34,10 @@ spring_length = 8.0
 [node name="Ceiling" type="MeshInstance3D" parent="." unique_id=1659569100]
 material_override = SubResource("StandardMaterial3D_qjkh3")
 mesh = ExtResource("1_oul6g")
+
+[node name="floor_partical" parent="." unique_id=2057081594 instance=ExtResource("5_qjkh3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+top_level = true
+
+[node name="fall_particle" parent="." unique_id=152278189 instance=ExtResource("6_g6k8r")]
+top_level = true
